@@ -17,7 +17,7 @@
 <body>
 <div class="container-fluid">
     <div class="container-fluid heading ">
-        <h1>My Todos</h1>
+        <h1 align="center">My Todos</h1>
     </div>
 
     <div class="container-fluid breathTop borderBottom">
@@ -26,13 +26,13 @@
             <div>
                 <p><b>Active Todos</b></p>
             </div>
-            <div id="active_todo_div"></div>
+            <div id="active_todo_div">
+
+            </div>
         </div>
     </div>
 
-    <!--<h3>Active todos</h3>-->
-    <!--<div id="active_todo_div"></div>-->
-    <!--<br>-->
+   <br>
 
 
 
@@ -46,14 +46,8 @@
             <input type="button" value="ADD" class="btn btn-info" onclick="addTodosAJAX()">
         </div>
     </div>
-    <!--<h3>Add todos</h3>-->
-    <!--<div id="add_todo_div">-->
-    <!--<input type="text" id="new_todo_input" placeholder= "Enter Todo Title Here"/>-->
-    <!--<input type="button" value="Add todo" onclick="addTodosAJAX()">-->
-    <!--</div>-->
+
     <br>
-    <!--<h3>Completed todos</h3>-->
-    <!--<div id="completed_todo_div">-->
 
 
     <div class="container-fluid borderBottom">
@@ -62,8 +56,12 @@
             <p><b>Completed Todos</b></p>
             <div id="completed_todo_div"></div>
         </div>
+        <div class="col-xs-2">
+            <button class="btn btn-link btn-xs" onclick="hideCompletedItems()">Hide Completed Items</button>
+        </div>
 
     </div>
+    <br>
 
     <div>
         <div class="col-xs-2"></div>
@@ -73,14 +71,16 @@
             <div id="deleted_todo_div" class="col-xs-10">
 
             </div>
+
+        </div>
+        <div class="col-xs-2">
+            <button class="btn btn-link btn-xs" onclick="hideDeletedItems()">Hide Deleted Items</button>
         </div>
 
     </div>
 
 
 
-    <!--<h3>Deleted todos</h3>-->
-    <!--<div id="deleted_todo_div">-->
 
 </div>
 

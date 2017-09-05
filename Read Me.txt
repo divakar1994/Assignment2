@@ -1,0 +1,17 @@
+ABOUT TODO APPLICATION
+A To do later app which helps user to add a task and helps in handling the todos whether it is ACTIVE,
+COMPLETED or DELETED.
+At first, we give a demo by giving 3 todos.
+
+FEATURES OF TODO APPLICATION
+1. Show list of Todos.
+2. Give two options to the user whether the status of todos is Completed or Deleted.
+3. Completed button sends the todo into the Completed Column.
+4. Deleted button sends the todo into the Deleted Column.
+5. As the status is changed from Active, it should be deleted from the Active Column.
+6. Simple UI is implemented
+
+FEATURES TO BE ADDED
+1. The checkbox should be implemented for the completion of the todo.
+2. And the cross Box is to be added in order to delete the todos.
+3. Little bit more advanced Ui should be implemented

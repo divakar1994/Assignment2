@@ -28,6 +28,8 @@ function removeRepeatTodos() {
 }
 
 
+
+
 function addTodoElement(todos_data_json) {
     var todos = JSON.parse(todos_data_json);
     // var active_parent = document.getElementById(TODOS_ACTIVE_ID);
@@ -57,49 +59,34 @@ function createTodoElement(id, todo_object) {
     var todo_element = document.createElement("div");
     todo_element.innerText = todo_object.title;
     todo_element.setAttribute("data-id", id);
-    todo_element.setAttribute("class", "todoStatus" + todo_object.status);
+    todo_element.setAttribute("class", "col-xs-8 todoStatus" + todo_object.status);
     if(todo_object.status === "ACTIVE"){
-        var complete_button = document.createElement("button");
-        complete_button.innerText = "Marks as complete";
-        complete_button.setAttribute("onclick", "completeTodoAJAX(" + id + ")");
-        complete_button.setAttribute("class", "breathHorizontal");
-        todo_element.appendChild(complete_button);
-        var delete_button = document.createElement("button");
-        delete_button.innerText = "Delete Todo";
-        delete_button.setAttribute("onclick", "deleteTodoAJAX(" + id + ")");
-        delete_button.setAttribute("class", "breathHorizontal");
-        todo_element.appendChild(delete_button);
-
-    }else if(todo_object.status === "COMPLETED"){
         // var complete_button = document.createElement("button");
         // complete_button.innerText = "Marks as complete";
         // complete_button.setAttribute("onclick", "completeTodoAJAX(" + id + ")");
         // complete_button.setAttribute("class", "breathHorizontal");
         // todo_element.appendChild(complete_button);
-        var delete_button = document.createElement("button");
-        delete_button.innerText = "Delete Todo";
-        delete_button.setAttribute("onclick", "deleteTodoAJAX(" + id + ")");
-        delete_button.setAttribute("class", "breathHorizontal");
-        todo_element.appendChild(delete_button);
+        todo_element.appendChild(createCheckbox(id, todo_object));
 
-    }
-
-    // if (todo_object.status === "ACTIVE") {
-    //     active_parent.appendChild(todo_element);
-    //     var complete_button = document.createElement("button");
-    //     complete_button.innerText = "Marks as complete";
-    //     complete_button.setAttribute("onclick", "completeTodoAJAX(" + id + ")");
-    //     complete_button.setAttribute("class", "breathHorizontal");
 
 
         // var delete_button = document.createElement("button");
         // delete_button.innerText = "Delete Todo";
         // delete_button.setAttribute("onclick", "deleteTodoAJAX(" + id + ")");
         // delete_button.setAttribute("class", "breathHorizontal");
-        // if(deleted_parent.hasChildNodes()){
-        //     deleted_parent.removeChild(deleted_parent.lastChild)
-        // }
-    // }
+        // todo_element.appendChild(delete_button);
+        todo_element.appendChild(createDeleteX(id));
+
+    }else if(todo_object.status === "COMPLETED"){
+        var delete1_button = document.createElement("button");
+        delete1_button.innerText = "Delete Todo";
+        delete1_button.setAttribute("onclick", "deleteTodoAJAX(" + id + ")");
+        delete1_button.setAttribute("class", "breathHorizontal");
+        todo_element.appendChild(delete1_button);
+
+    }
+
+
     return todo_element;
 }
 
@@ -194,4 +181,65 @@ function deleteTodoAJAX(id) {
     }
     xhr.send(data);
     //removeRepeatTodos()
+}
+
+
+
+
+function hideCompletedItems() {
+    var complete_parent = document.getElementById(TODOS_COMPLETED_ID);
+    if (complete_parent.style.display === 'none') {
+        complete_parent.style.display = 'block';
+    } else {
+        complete_parent.style.display = 'none';
+    }
+}
+
+// function to hide the list of deleted todos from display
+// It toggle's the display of the deleted_parent element
+function hideDeletedItems() {
+    var parent = document.getElementById(TODOS_DELETED_ID);
+    if (parent.style.display === 'none') {
+        parent.style.display = 'block';
+    } else {
+        parent.style.display = 'none';
+    }
+}
+
+
+function createCheckbox(todo_id, todo) {
+    var checkbox_div = document.createElement("div");
+    checkbox_div.setAttribute("class", "col-xs-2");
+    checkbox_div.setAttribute("align", "right");
+    var checkbox = document.createElement("input");
+    checkbox.setAttribute("type", "checkbox");
+    checkbox.setAttribute("class", "css-checkbox");
+    checkbox.setAttribute("id", "checkbox" + todo_id);
+    checkbox.setAttribute("onchange", "completeTodoAJAX(" + todo_id + ")");
+    if (todo.status === TODOS_COMPLETED_ID) {
+        checkbox.checked = true;
+        checkbox.setAttribute("onchange", "addTodosAJAX(" + todo_id + ")");
+    }
+    checkbox_div.appendChild(checkbox);
+    var label = document.createElement("label");
+    label.setAttribute("for", "checkbox"+todo_id);
+    label.setAttribute("class", "css-label");
+    checkbox_div.appendChild(label);
+    return checkbox_div;
+}
+
+
+
+
+function createDeleteX(todo_id) {
+    var delete_x_div = document.createElement("div");
+    delete_x_div.setAttribute("class", "text-danger col-xs-2");
+    var delete_x = document.createElement("button");
+    delete_x.setAttribute("class", "btn btn-link");
+    delete_x.innerHTML = "<sup>X</sup>";
+    delete_x.setAttribute("onclick", "deleteTodoAJAX(" + todo_id + ")");
+    delete_x.setAttribute("data-toggle", "tooltip");
+    delete_x.setAttribute("title", "Delete todo");
+    delete_x_div.appendChild(delete_x);
+    return delete_x_div;
 }
